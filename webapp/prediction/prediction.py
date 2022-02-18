@@ -1,7 +1,5 @@
-from tkinter import *
 import numpy as np
 import pandas as pd
-# from gui_stuff import *
 
 l1=['back_pain','constipation','abdominal_pain','diarrhoea','mild_fever','yellow_urine',
 'yellowing_of_eyes','acute_liver_failure','fluid_overload','swelling_of_stomach',
@@ -26,10 +24,9 @@ l1=['back_pain','constipation','abdominal_pain','diarrhoea','mild_fever','yellow
 
 disease=['Fungal infection','Allergy','GERD','Chronic cholestasis','Drug Reaction',
 'Peptic ulcer diseae','AIDS','Diabetes','Gastroenteritis','Bronchial Asthma','Hypertension',
-' Migraine','Cervical spondylosis',
-'Paralysis (brain hemorrhage)','Jaundice','Malaria','Chicken pox','Dengue','Typhoid','hepatitis A',
-'Hepatitis B','Hepatitis C','Hepatitis D','Hepatitis E','Alcoholic hepatitis','Tuberculosis',
-'Common Cold','Pneumonia','Dimorphic hemmorhoids(piles)',
+' Migraine','Cervical spondylosis','Paralysis (brain hemorrhage)','Jaundice','Malaria','Chicken pox',
+'Dengue','Typhoid','hepatitis A','Hepatitis B','Hepatitis C','Hepatitis D','Hepatitis E',
+'Alcoholic hepatitis','Tuberculosis','Common Cold','Pneumonia','Dimorphic hemmorhoids(piles)',
 'Heartattack','Varicoseveins','Hypothyroidism','Hyperthyroidism','Hypoglycemia','Osteoarthristis',
 'Arthritis','(vertigo) Paroymsal  Positional Vertigo','Acne','Urinary tract infection','Psoriasis',
 'Impetigo']
@@ -57,6 +54,7 @@ X= df[l1]
 
 y = df[["prognosis"]]
 np.ravel(y)
+#numpy
 # print(y)
 
 # TRAINING DATA tr --------------------------------------------------------------------------------
@@ -75,46 +73,6 @@ X_test= tr[l1]
 y_test = tr[["prognosis"]]
 np.ravel(y_test)
 # ------------------------------------------------------------------------------------------------------
-
-def DecisionTree(symptoms):
-
-    from sklearn import tree
-
-    clf3 = tree.DecisionTreeClassifier()   # empty model of the decision tree
-    clf3 = clf3.fit(X,y)
-
-    # calculating accuracy-------------------------------------------------------------------
-    from sklearn.metrics import accuracy_score
-    y_pred=clf3.predict(X_test)
-    print(accuracy_score(y_test, y_pred))
-    print(accuracy_score(y_test, y_pred,normalize=False))
-    # -----------------------------------------------------
-
-    psymptoms = symptoms
-
-    for k in range(0,len(l1)):
-        # print (k,)
-        for z in psymptoms:
-            if(z==l1[k]):
-                l2[k]=1
-
-    inputtest = [l2]
-    predict = clf3.predict(inputtest)
-    predicted=predict[0]
-
-    h='no'
-    for a in range(0,len(disease)):
-        if(predicted == a):
-            h='yes'
-            break
-
-    if (h=='yes'):
-        # print("1.0", END)
-        return disease[a]
-    else:
-        # print("1.0", END)
-        return "Not Found"
-
 
 def randomforest(symptoms):
     from sklearn.ensemble import RandomForestClassifier
@@ -146,12 +104,9 @@ def randomforest(symptoms):
             break
 
     if (h=='yes'):
-        # print("1.0", END)
         return disease[a]
     else:
-        # print("1.0", END)
         return "Not Found"
-
 
 def NaiveBayes(symptoms):
     from sklearn.naive_bayes import GaussianNB
@@ -166,8 +121,8 @@ def NaiveBayes(symptoms):
     # -----------------------------------------------------
 
     psymptoms = symptoms
-    for k in range(0,len(l1)):
-        for z in psymptoms:
+    for k in range(0,len(l1)): #k = back_pain
+        for z in psymptoms: #itching,backpain,c,d,e
             if(z==l1[k]):
                 l2[k]=1
 
@@ -182,108 +137,7 @@ def NaiveBayes(symptoms):
             break
 
     if (h=='yes'):
-        # print("1.0", END)
         return disease[a]
     else:
-        # print("1.0", END)
         return "Not Found"
 
-
-# gui_stuff------------------------------------------------------------------------------------
-#
-# root = Tk()
-# root.configure(background='blue')
-#
-# # entry variables
-# Symptom1 = StringVar()
-# Symptom1.set(None)
-# Symptom2 = StringVar()
-# Symptom2.set(None)
-# Symptom3 = StringVar()
-# Symptom3.set(None)
-# Symptom4 = StringVar()
-# Symptom4.set(None)
-# Symptom5 = StringVar()
-# Symptom5.set(None)
-# Name = StringVar()
-#
-# # Heading
-# w2 = Label(root, justify=LEFT, text="Disease Predictor using Machine Learning", fg="white", bg="blue")
-# w2.config(font=("Elephant", 30))
-# w2.grid(row=1, column=0, columnspan=2, padx=100)
-# w2 = Label(root, justify=LEFT, text="A Project by Team3", fg="white", bg="blue")
-# w2.config(font=("Aharoni", 30))
-# w2.grid(row=2, column=0, columnspan=2, padx=100)
-#
-# # labels
-# NameLb = Label(root, text="Name of the Patient", fg="yellow", bg="black")
-# NameLb.grid(row=6, column=0, pady=15, sticky=W)
-#
-#
-# S1Lb = Label(root, text="Symptom 1", fg="yellow", bg="black")
-# S1Lb.grid(row=7, column=0, pady=10, sticky=W)
-#
-# S2Lb = Label(root, text="Symptom 2", fg="yellow", bg="black")
-# S2Lb.grid(row=8, column=0, pady=10, sticky=W)
-#
-# S3Lb = Label(root, text="Symptom 3", fg="yellow", bg="black")
-# S3Lb.grid(row=9, column=0, pady=10, sticky=W)
-#
-# S4Lb = Label(root, text="Symptom 4", fg="yellow", bg="black")
-# S4Lb.grid(row=10, column=0, pady=10, sticky=W)
-#
-# S5Lb = Label(root, text="Symptom 5", fg="yellow", bg="black")
-# S5Lb.grid(row=11, column=0, pady=10, sticky=W)
-#
-#
-# lrLb = Label(root, text="DecisionTree", fg="white", bg="red")
-# lrLb.grid(row=15, column=0, pady=10,sticky=W)
-#
-# destreeLb = Label(root, text="RandomForest", fg="white", bg="red")
-# destreeLb.grid(row=17, column=0, pady=10, sticky=W)
-#
-# ranfLb = Label(root, text="NaiveBayes", fg="white", bg="red")
-# ranfLb.grid(row=19, column=0, pady=10, sticky=W)
-#
-# # entries
-# OPTIONS = sorted(l1)
-#
-# NameEn = Entry(root, textvariable=Name)
-# NameEn.grid(row=6, column=1)
-#
-# S1En = OptionMenu(root, Symptom1,*OPTIONS)
-# S1En.grid(row=7, column=1)
-#
-# S2En = OptionMenu(root, Symptom2,*OPTIONS)
-# S2En.grid(row=8, column=1)
-#
-# S3En = OptionMenu(root, Symptom3,*OPTIONS)
-# S3En.grid(row=9, column=1)
-#
-# S4En = OptionMenu(root, Symptom4,*OPTIONS)
-# S4En.grid(row=10, column=1)
-#
-# S5En = OptionMenu(root, Symptom5,*OPTIONS)
-# S5En.grid(row=11, column=1)
-#
-#
-# dst = Button(root, text="DecisionTree", command=DecisionTree,bg="green",fg="yellow")
-# dst.grid(row=8, column=3,padx=10)
-#
-# rnf = Button(root, text="Randomforest", command=randomforest,bg="green",fg="yellow")
-# rnf.grid(row=9, column=3,padx=10)
-#
-# lr = Button(root, text="NaiveBayes", command=NaiveBayes,bg="green",fg="yellow")
-# lr.grid(row=10, column=3,padx=10)
-#
-# #textfileds
-# t1 = Text(root, height=1, width=40,bg="orange",fg="black")
-# t1.grid(row=15, column=1, padx=10)
-#
-# t2 = Text(root, height=1, width=40,bg="orange",fg="black")
-# t2.grid(row=17, column=1 , padx=10)
-#
-# t3 = Text(root, height=1, width=40,bg="orange",fg="black")
-# t3.grid(row=19, column=1 , padx=10)
-#
-# root.mainloop()

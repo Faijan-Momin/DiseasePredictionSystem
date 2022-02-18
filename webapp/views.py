@@ -1,3 +1,4 @@
+import django
 from django.shortcuts import render
 from django.contrib import messages
 from webapp.models import Symptoms,users
@@ -26,13 +27,11 @@ def signup(request):
                         i1 = str(i)
                         if(i1 == email):
                             messages.success(request, 'Login Successfull')
-                            return render(request, 'webapp/prediction.html')
-
+                            return django.shortcuts.redirect('/prediction/')
                         else:
                             messages.info(request, 'Please Enter Correct Credentials')
                 else:
                     print("no data")
-
 
 
         elif(formtype == "signup"):
@@ -88,3 +87,7 @@ def prediction(request):
             }
             return render(request, 'webapp/prediction.html', resultDict)
     return render(request, 'webapp/prediction.html', context)
+
+def redirect_view(request):
+    response = django.shortcuts.redirect('/redirect-success/')
+    return response
