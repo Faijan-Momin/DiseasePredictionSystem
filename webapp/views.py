@@ -83,7 +83,8 @@ def prediction(request):
             result = webapp.prediction.prediction.NaiveBayes(symptom_list)
             resultDict = {
                 'PredictedDisease': result,
-                'symptoms': webapp.prediction.prediction.l1
+                'symptoms': webapp.prediction.prediction.l1,
+                'userSymptoms': symptom_list
             }
             return render(request, 'webapp/prediction.html', resultDict)
     return render(request, 'webapp/prediction.html', context)

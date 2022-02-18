@@ -121,8 +121,8 @@ def NaiveBayes(symptoms):
     # -----------------------------------------------------
 
     psymptoms = symptoms
-    for k in range(0,len(l1)): #k = back_pain
-        for z in psymptoms: #itching,backpain,c,d,e
+    for k in range(0,len(l1)):
+        for z in psymptoms:
             if(z==l1[k]):
                 l2[k]=1
 

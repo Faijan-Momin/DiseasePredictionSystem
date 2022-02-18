@@ -166,7 +166,7 @@ body::-webkit-scrollbar { width: 0 !important }
 <body>
     <nav class="navbar">
         <div class="max-width">
-          <div class="logo"><a href="index.html"><img src="https://i.ibb.co/25dj7wR/new-logo.png alt="logo" ></a> Disease Prediction System</div>
+          <div class="logo"><a href="index.html"><img src="https://i.ibb.co/25dj7wR/new-logo.png alt="logo"></a> Disease Prediction System</div>
         </div>
       </nav>
 
@@ -235,6 +235,11 @@ body::-webkit-scrollbar { width: 0 !important }
           <!-- Prediction Output -->
           {% if PredictedDisease %}
             <div class="user-prediction-output">
+                <p>Your input Symptoms are :
+                    {% for symptoms in userSymptoms %}
+                        {{ symptoms }} ,
+                    {% endfor %}
+                </p>
                 <h1>Predicted Disease is : {{ PredictedDisease }}</h1>
             </div>
           {% endif %}
